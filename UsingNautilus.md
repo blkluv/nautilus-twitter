@@ -252,10 +252,10 @@ sui client call --function update_name --module enclave --package $ENCLAVE_PACKA
 sh ../../register_enclave.sh $ENCLAVE_PACKAGE_ID $EXAMPLES_PACKAGE_ID $ENCLAVE_CONFIG_OBJECT_ID $ENCLAVE_URL $MODULE_NAME $OTW_NAME
 
 # record the created shared object ENCLAVE_OBJECT_ID as env var from register output
-ENCLAVE_OBJECT_ID=0x3e5f7fe733afd162208dbdb0f6493123755e2254f8b3cfe5cbef98edc1de8884
+ENCLAVE_OBJECT_ID=0xfa9bce59c4df083b50a06d02977eb3fbee9f8fbde3ff1c866b2664fbd3315b06
 ```
 
-You can view an example of an enclave config object containing PCRs [here](https://testnet.suivision.xyz/object/0x49f658245333f5836c5c9c8b835dee4923794b298afaed923dd2bba6d937a222). Also you can view an example of an enclave object containing the enclave public key [here](https://testnet.suivision.xyz/object/0x3e5f7fe733afd162208dbdb0f6493123755e2254f8b3cfe5cbef98edc1de8884).
+You can view an example of an enclave config object containing PCRs [here](https://testnet.suivision.xyz/object/0x49f658245333f5836c5c9c8b835dee4923794b298afaed923dd2bba6d937a222). Also you can view an example of an enclave object containing the enclave public key [here](https://testnet.suivision.xyz/object/0xfa9bce59c4df083b50a06d02977eb3fbee9f8fbde3ff1c866b2664fbd3315b06).
 
 ### Update PCRs
 
