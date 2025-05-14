@@ -15,6 +15,18 @@ import { bcs } from "@mysten/sui/bcs";
 
 const API_URL = import.meta.env.VITE_API_URL || "";
 
+const isValidTwitterUrl = (url: string): boolean => {
+  try {
+    const urlObj = new URL(url.trim());
+    return (
+      (urlObj.hostname === "twitter.com" || urlObj.hostname === "x.com") &&
+      (urlObj.pathname.includes("/status/") || urlObj.pathname.split("/").length === 2)
+    );
+  } catch {
+    return false;
+  }
+};
+
 const EnclaveConfigMove = bcs.struct("EnclaveConfig", {
   id: bcs.Address,
   name: bcs.string(),
@@ -80,6 +92,11 @@ function App() {
 
   const processUrlAndMint = async (twitterUrl: string) => {
     try {
+      if (!isValidTwitterUrl(twitterUrl)) {
+        setError("Please enter a valid Twitter/X profile or tweet URL");
+        return;
+      }
+
       console.log("processing url", twitterUrl);
       console.log("processing API_URL", API_URL);
 
@@ -94,9 +111,16 @@ function App() {
           },
         }),
       });
+
       if (!res.ok) {
-        console.error("Error:", res.statusText);
-        setError("Invalid URL. Please try again.");
+        const errorData = await res.json().catch(() => ({}));
+        if (res.status === 429) {
+          setError("Rate limit exceeded. Please try again in a few minutes.");
+        } else if (errorData.error) {
+          setError(errorData.error);
+        } else {
+          setError(`Error: ${res.statusText}`);
+        }
         return;
       }
 
@@ -193,7 +217,13 @@ function App() {
           <a href="https://faucet.sui.io/">faucet.sui.io</a>).
         </p>
         <p>
-          4. The address you tweeted or posted in profile is indeed the address
+          4. If you see the 429 rate limit error, it means this example frontend app has likely 
+          hit one of the <a href="https://docs.x.com/x-api/fundamentals/rate-limits"> rate limits </a> 
+          to fetch from Twitter API. You are welcome to develop your own project and pay for your own 
+          Twitter developer account and implement your own backend rate limiting to prevent overload. 
+        </p>
+        <p>
+          5. The address you tweeted or posted in profile is indeed the address
           connected to this website. <br />- Example Profile (In description:
           address #SUI):{" "}
           <a
@@ -326,7 +356,7 @@ function App() {
             <br />
             <b>What if I tweeted someone else's address?</b> <br />
             <br />
-            You cannot mint your Twitter handle to someone else’s address. The
+            You cannot mint your Twitter handle to someone else's address. The
             transaction will fail because the sender does not match the address
             specified in the attestation.
             <br />
