@@ -46,4 +46,6 @@ echo "$JSON_RESPONSE" | jq -r 'to_entries[] | "\(.key)=\(.value)"' > /tmp/kvpair
 socat VSOCK-LISTEN:3000,reuseaddr,fork TCP:localhost:3000 &
 # Metrics listsens on Local VSOCK Port 9184 and forwards to localhost 9184
 socat VSOCK-LISTEN:9184,reuseaddr,fork TCP:localhost:9184 &
+# Logs listsens on Local VSOCK Port 8080 and forwards to localhost 2025
+socat VSOCK-LISTEN:8080,reuseaddr,fork TCP:localhost:2025 &
 /nautilus-server

@@ -419,12 +419,25 @@ dnf update
 sudo dnf install alloy -y
 sudo dnf upgrade --releasever=2023.5.20240819 #(This upgrades latest ca-certifcates/nitro-cli dependencies)
 
+# Install Vector
+bash -c "$(curl -L https://setup.vector.dev)"
+sudo dnf install vector -y
+# Install Vector config
+# remove the default vector.yaml file
+rm /etc/vector/vector.yaml
+cat >> /etc/vector/vector.toml <<EOF
+cat > /usr/lib/systemd/system/vector.service <<EOF
+
 # Install Grafana Agent config
 sudo mkdir -p /etc/alloy
 
 # Start Grafana Agent
 sudo systemctl reload alloy
 sudo systemctl start alloy
+
+# Start Vector
+systemctl kill -s HUP --kill-who=main vector.service
+sudo systemctl restart vector
 
 EOF
 

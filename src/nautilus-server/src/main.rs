@@ -6,15 +6,19 @@ use axum::{routing::get, routing::post, Router};
 use fastcrypto::{ed25519::Ed25519KeyPair, traits::KeyPair};
 use nautilus_server::app::process_data;
 use nautilus_server::common::{get_attestation, health_check};
+use nautilus_server::logging::configure_logging;
 use nautilus_server::metrics::start_basic_prometheus_server;
 use nautilus_server::metrics::Metrics;
 use nautilus_server::AppState;
 use std::sync::Arc;
 use tower_http::cors::{Any, CorsLayer};
 use tracing::info;
+use tracing_subscriber::filter::LevelFilter;
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    // This guard must be held for the duration of the program.
+    let _guard = configure_logging(LevelFilter::INFO).await;
     let eph_kp = Ed25519KeyPair::generate(&mut rand::thread_rng());
 
     // Start the metrics server

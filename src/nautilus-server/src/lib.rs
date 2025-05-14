@@ -11,6 +11,7 @@ use serde_json::json;
 
 pub mod app;
 pub mod common;
+pub mod logging;
 pub mod metrics;
 /// App state, at minimum needs to maintain the ephemeral keypair.  
 pub struct AppState {
