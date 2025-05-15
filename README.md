@@ -31,8 +31,8 @@ Follow the [Nautilus guide](UsingNautilus.md#run-the-example-enclave).
 The PCRs for this repo can be reproducibly built to the following. Note that this includes traffic forwarding changes made to `run.sh`. 
 
 ```
-PCR0=38358b5fa2419c399140b1afbeb6adb03e607c5ba6c6dec51a895c3e32d4a5510af55bc7a5a032d811041b47108703d8
-PCR1=38358b5fa2419c399140b1afbeb6adb03e607c5ba6c6dec51a895c3e32d4a5510af55bc7a5a032d811041b47108703d8
+PCR0=e11cf66240140f7bb7476cfc483c85caf26a82dd4e0ce9aee2d6cd5cb2ef571fa400112763e0977a2a18ef09f95212ba
+PCR1=e11cf66240140f7bb7476cfc483c85caf26a82dd4e0ce9aee2d6cd5cb2ef571fa400112763e0977a2a18ef09f95212ba
 PCR2=21b9efbc184807662e966d34f390821309eeac6802309798826296bf3e8bec7c10edb30948c90ba67310f7b964fc500a
 ```
 
@@ -49,20 +49,20 @@ ENCLAVE_PACKAGE_ID=0x62afa41b677c59037ba4e893367e86e56cb9bdbfa987fe0e835cdce474b
 CAP_OBJECT_ID=0xb163c3e7135e9995baef56998b726f7d64593fa76a98481e6eb3c0cc3d7226ab
 ENCLAVE_CONFIG_OBJECT_ID=0x4d933a25438f2bf9b59cd2c16e81e30b41a7ee0f2a3172396952ce1d7676bfc2
 EXAMPLES_PACKAGE_ID=0xffe4466f1b98b2834327eb0757823323abed4756d0fe4ddd240dfc91abe3b39d
-ENCLAVE_OBJECT_ID=0xe23314ccdb8b0cb4f2bbdf77a167f8c77e58475cda524af549c614f4b3716dc8
+ENCLAVE_OBJECT_ID=0x62afa41b677c59037ba4e893367e86e56cb9bdbfa987fe0e835cdce474b54ece
 
 # replace with your own enclave IP
 ENCLAVE_URL=http://<PUBLIC_IP>:3000
 ```
 
-You can view an example of an enclave config object containing PCRs [here](https://testnet.suivision.xyz/object/0x4d933a25438f2bf9b59cd2c16e81e30b41a7ee0f2a3172396952ce1d7676bfc2). Also you can view an example of an enclave object containing the enclave public key [here](https://testnet.suivision.xyz/object/0xe23314ccdb8b0cb4f2bbdf77a167f8c77e58475cda524af549c614f4b3716dc8).
+You can view an example of an enclave config object containing PCRs [here](https://testnet.suivision.xyz/object/0x4d933a25438f2bf9b59cd2c16e81e30b41a7ee0f2a3172396952ce1d7676bfc2). Also you can view an example of an enclave object containing the enclave public key [here](https://testnet.suivision.xyz/object/0x62afa41b677c59037ba4e893367e86e56cb9bdbfa987fe0e835cdce474b54ece).
 
 Then update the following in `frontend/src/networkConfig.ts` for frontend. 
 
 ```typescript
 const EXAMPLE_PACKAGE_ID = "0xffe4466f1b98b2834327eb0757823323abed4756d0fe4ddd240dfc91abe3b39d";
 const ENCLAVE_CONFIG_OBJECT_ID = "0x4d933a25438f2bf9b59cd2c16e81e30b41a7ee0f2a3172396952ce1d7676bfc2";
-const ENCLAVE_OBJECT_ID = "0xe23314ccdb8b0cb4f2bbdf77a167f8c77e58475cda524af549c614f4b3716dc8";
+const ENCLAVE_OBJECT_ID = "0x62afa41b677c59037ba4e893367e86e56cb9bdbfa987fe0e835cdce474b54ece";
 ```
 
 ## Frontend
