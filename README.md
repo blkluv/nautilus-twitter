@@ -49,20 +49,20 @@ ENCLAVE_PACKAGE_ID=0x62afa41b677c59037ba4e893367e86e56cb9bdbfa987fe0e835cdce474b
 CAP_OBJECT_ID=0xb163c3e7135e9995baef56998b726f7d64593fa76a98481e6eb3c0cc3d7226ab
 ENCLAVE_CONFIG_OBJECT_ID=0x4d933a25438f2bf9b59cd2c16e81e30b41a7ee0f2a3172396952ce1d7676bfc2
 EXAMPLES_PACKAGE_ID=0xffe4466f1b98b2834327eb0757823323abed4756d0fe4ddd240dfc91abe3b39d
-ENCLAVE_OBJECT_ID=0x62afa41b677c59037ba4e893367e86e56cb9bdbfa987fe0e835cdce474b54ece
+ENCLAVE_OBJECT_ID=0x5ea48cc2883aaf4fa040293dab5fd033dbe64f61d70630b077c311503766be02
 
 # replace with your own enclave IP
 ENCLAVE_URL=http://<PUBLIC_IP>:3000
 ```
 
-You can view an example of an enclave config object containing PCRs [here](https://testnet.suivision.xyz/object/0x4d933a25438f2bf9b59cd2c16e81e30b41a7ee0f2a3172396952ce1d7676bfc2). Also you can view an example of an enclave object containing the enclave public key [here](https://testnet.suivision.xyz/object/0x62afa41b677c59037ba4e893367e86e56cb9bdbfa987fe0e835cdce474b54ece).
+You can view an example of an enclave config object containing PCRs [here](https://testnet.suivision.xyz/object/0x4d933a25438f2bf9b59cd2c16e81e30b41a7ee0f2a3172396952ce1d7676bfc2). Also you can view an example of an enclave object containing the enclave public key [here](https://testnet.suivision.xyz/object/0x5ea48cc2883aaf4fa040293dab5fd033dbe64f61d70630b077c311503766be02).
 
 Then update the following in `frontend/src/networkConfig.ts` for frontend. 
 
 ```typescript
 const EXAMPLE_PACKAGE_ID = "0xffe4466f1b98b2834327eb0757823323abed4756d0fe4ddd240dfc91abe3b39d";
 const ENCLAVE_CONFIG_OBJECT_ID = "0x4d933a25438f2bf9b59cd2c16e81e30b41a7ee0f2a3172396952ce1d7676bfc2";
-const ENCLAVE_OBJECT_ID = "0x62afa41b677c59037ba4e893367e86e56cb9bdbfa987fe0e835cdce474b54ece";
+const ENCLAVE_OBJECT_ID = "0x5ea48cc2883aaf4fa040293dab5fd033dbe64f61d70630b077c311503766be02";
 ```
 
 ## Frontend
