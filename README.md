@@ -31,8 +31,8 @@ Follow the [Nautilus guide](UsingNautilus.md#run-the-example-enclave).
 The PCRs for this repo can be reproducibly built to the following. Note that this includes traffic forwarding changes made to `run.sh`. 
 
 ```
-PCR0=8912462a02fd4f827c5e9c7d12d8f33acc3ae99f23dcf35054f6d157a243edf3b78dc2781b7eb8335745ae4817388b41
-PCR1=8912462a02fd4f827c5e9c7d12d8f33acc3ae99f23dcf35054f6d157a243edf3b78dc2781b7eb8335745ae4817388b41
+PCR0=38358b5fa2419c399140b1afbeb6adb03e607c5ba6c6dec51a895c3e32d4a5510af55bc7a5a032d811041b47108703d8
+PCR1=38358b5fa2419c399140b1afbeb6adb03e607c5ba6c6dec51a895c3e32d4a5510af55bc7a5a032d811041b47108703d8
 PCR2=21b9efbc184807662e966d34f390821309eeac6802309798826296bf3e8bec7c10edb30948c90ba67310f7b964fc500a
 ```
 
@@ -45,24 +45,24 @@ MODULE_NAME=twitter
 OTW_NAME=TWITTER
 
 # replace with your registered enclave
-ENCLAVE_PACKAGE_ID=0xb202753b0f1aa737e14c0984dc47256f780a174066970c02ef49c295ec1b8e60
-CAP_OBJECT_ID=0x50335d405b257801baef8217aa59917710c0d32453c0b0d43f87847eec71ed18
-ENCLAVE_CONFIG_OBJECT_ID=0x396c98837eefe3f4f0ec33869f879afa4be45f8a0a1ae8c85340b13b52bfaf74
-EXAMPLES_PACKAGE_ID=0x17e5a471c93c034e6a4f7778675f8fd76e672c429e02ce48b5e1cc46d5c66324
-ENCLAVE_OBJECT_ID=0xda3a527fd4db8ba1b1e7f1b2da2273bc227ec9027dcbcb88ecd2162a75d36ade
+ENCLAVE_PACKAGE_ID=0x62afa41b677c59037ba4e893367e86e56cb9bdbfa987fe0e835cdce474b54ece
+CAP_OBJECT_ID=0xb163c3e7135e9995baef56998b726f7d64593fa76a98481e6eb3c0cc3d7226ab
+ENCLAVE_CONFIG_OBJECT_ID=0x4d933a25438f2bf9b59cd2c16e81e30b41a7ee0f2a3172396952ce1d7676bfc2
+EXAMPLES_PACKAGE_ID=0xffe4466f1b98b2834327eb0757823323abed4756d0fe4ddd240dfc91abe3b39d
+ENCLAVE_OBJECT_ID=0xe23314ccdb8b0cb4f2bbdf77a167f8c77e58475cda524af549c614f4b3716dc8
 
 # replace with your own enclave IP
 ENCLAVE_URL=http://<PUBLIC_IP>:3000
 ```
 
-You can view an example of an enclave config object containing PCRs [here](https://testnet.suivision.xyz/object/0x396c98837eefe3f4f0ec33869f879afa4be45f8a0a1ae8c85340b13b52bfaf74). Also you can view an example of an enclave object containing the enclave public key [here](https://testnet.suivision.xyz/object/0xda3a527fd4db8ba1b1e7f1b2da2273bc227ec9027dcbcb88ecd2162a75d36ade).
+You can view an example of an enclave config object containing PCRs [here](https://testnet.suivision.xyz/object/0x4d933a25438f2bf9b59cd2c16e81e30b41a7ee0f2a3172396952ce1d7676bfc2). Also you can view an example of an enclave object containing the enclave public key [here](https://testnet.suivision.xyz/object/0xe23314ccdb8b0cb4f2bbdf77a167f8c77e58475cda524af549c614f4b3716dc8).
 
 Then update the following in `frontend/src/networkConfig.ts` for frontend. 
 
 ```typescript
-const EXAMPLE_PACKAGE_ID = "0x17e5a471c93c034e6a4f7778675f8fd76e672c429e02ce48b5e1cc46d5c66324";
-const ENCLAVE_CONFIG_OBJECT_ID = "0x396c98837eefe3f4f0ec33869f879afa4be45f8a0a1ae8c85340b13b52bfaf74";
-const ENCLAVE_OBJECT_ID = "0xda3a527fd4db8ba1b1e7f1b2da2273bc227ec9027dcbcb88ecd2162a75d36ade";
+const EXAMPLE_PACKAGE_ID = "0xffe4466f1b98b2834327eb0757823323abed4756d0fe4ddd240dfc91abe3b39d";
+const ENCLAVE_CONFIG_OBJECT_ID = "0x4d933a25438f2bf9b59cd2c16e81e30b41a7ee0f2a3172396952ce1d7676bfc2";
+const ENCLAVE_OBJECT_ID = "0xe23314ccdb8b0cb4f2bbdf77a167f8c77e58475cda524af549c614f4b3716dc8";
 ```
 
 ## Frontend

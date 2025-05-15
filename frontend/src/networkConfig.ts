@@ -3,9 +3,9 @@
 import { getFullnodeUrl } from "@mysten/sui/client";
 import { createNetworkConfig } from "@mysten/dapp-kit";
 
-const EXAMPLE_PACKAGE_ID = "0x17e5a471c93c034e6a4f7778675f8fd76e672c429e02ce48b5e1cc46d5c66324";
-const ENCLAVE_CONFIG_OBJECT_ID = "0x396c98837eefe3f4f0ec33869f879afa4be45f8a0a1ae8c85340b13b52bfaf74";
-const ENCLAVE_OBJECT_ID = "0xfa9bce59c4df083b50a06d02977eb3fbee9f8fbde3ff1c866b2664fbd3315b06";
+const EXAMPLE_PACKAGE_ID = "0xffe4466f1b98b2834327eb0757823323abed4756d0fe4ddd240dfc91abe3b39d";
+const ENCLAVE_CONFIG_OBJECT_ID = "0x4d933a25438f2bf9b59cd2c16e81e30b41a7ee0f2a3172396952ce1d7676bfc2";
+const ENCLAVE_OBJECT_ID = "0xe23314ccdb8b0cb4f2bbdf77a167f8c77e58475cda524af549c614f4b3716dc8";
 
 const { networkConfig, useNetworkVariable, useNetworkVariables } =
   createNetworkConfig({

@@ -25,8 +25,9 @@ public struct UserData has copy, drop {
 public struct TWITTER has drop {}
 
 fun init(otw: TWITTER, ctx: &mut TxContext) {
-    let cap = enclave::create_enclave_config(
-        otw,
+    let cap = enclave::new_cap(otw, ctx);
+
+    cap.create_enclave_config(
         std::string::utf8(b"twitter enclave"),
         x"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", // pcr0
         x"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", // pcr1
@@ -53,13 +54,19 @@ public fun mint_nft<T>(twitter_name: vector<u8>, timestamp_ms: u64, sig: &vector
 fun test_twitter_flow() {
     use sui::test_scenario::{Self, ctx, next_tx};
     use sui::nitro_attestation;
-    use enclave::enclave::{register_enclave, create_enclave_config, destroy_enclave, destroy_cap, update_pcrs, EnclaveConfig};
+    use sui::test_utils::destroy;
+    use enclave::enclave::{register_enclave, create_enclave_config, update_pcrs, EnclaveConfig};
+    
     let mut scenario = test_scenario::begin(@0x4668aa5963dacfe3e169be3cf824395ab9de3f0a544fc2ca638858a536b5ff4b);
     let mut clock = sui::clock::create_for_testing(ctx(&mut scenario));
     clock.set_for_testing(1744731549746);
 
-    let cap = create_enclave_config(
+    let cap = enclave::new_cap(
         TWITTER {},
+        ctx(&mut scenario),
+    );
+
+    cap.create_enclave_config(
         string::utf8(b"twitter enclave"),
         x"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
         x"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
@@ -97,7 +104,7 @@ fun test_twitter_flow() {
     sui::transfer::transfer(nft, tx_context::sender(ctx(&mut scenario)));
     test_scenario::return_shared(config);
     clock.destroy_for_testing();
-    destroy_cap(cap);
-    destroy_enclave(enclave);
+    enclave.destroy();
+    destroy(cap);
     test_scenario::end(scenario);
 }
