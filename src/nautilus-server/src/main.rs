@@ -10,13 +10,39 @@ use nautilus_server::logging::configure_logging;
 use nautilus_server::metrics::start_basic_prometheus_server;
 use nautilus_server::metrics::Metrics;
 use nautilus_server::AppState;
+use std::io::Write;
 use std::sync::Arc;
 use tower_http::cors::{Any, CorsLayer};
 use tracing::info;
 use tracing_subscriber::filter::LevelFilter;
-
 #[tokio::main]
 async fn main() -> Result<()> {
+    // Set up panic handler to log panics
+    let default_panic_handler = std::panic::take_hook();
+    std::panic::set_hook(Box::new(move |panic| {
+        // If the panic has a source location, record it as structured fields.
+        if let Some(location) = panic.location() {
+            // On nightly Rust, where the `PanicInfo` type also exposes a
+            // `message()` method returning just the message, we could record
+            // just the message instead of the entire `fmt::Display`
+            // implementation, avoiding the duplicated location
+            tracing::error!(
+                message = %panic,
+                panic.file = location.file(),
+                panic.line = location.line(),
+                panic.column = location.column(),
+            );
+        } else {
+            tracing::error!(message = %panic);
+        }
+
+        default_panic_handler(panic);
+
+        // We're panicking so we can't do anything about the flush failing
+        let _ = std::io::stderr().flush();
+        let _ = std::io::stdout().flush();
+    }));
+
     // This guard must be held for the duration of the program.
     let _guard = configure_logging(LevelFilter::INFO).await;
     let eph_kp = Ed25519KeyPair::generate(&mut rand::thread_rng());
