@@ -25,9 +25,10 @@ jobs:
         with:
           config: |-
             mystenlabs/sui:
-              platform: ubuntu-latest
+              platform: ubuntu
               arch: x86_64
               extension-matching: true
+              tag: testnet-v1.49.1
             
       - name: Run move tests
         run: |
