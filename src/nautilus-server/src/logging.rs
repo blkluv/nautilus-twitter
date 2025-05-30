@@ -103,16 +103,31 @@ where
         let client = self.client.clone();
         let url = self.log_server_url.clone();
 
-        // Spawn a task to send the log asynchronously
-        tokio::spawn(async move {
-            let res = client.post(&url).json(&payload).send().await;
-            if let Err(e) = res {
-                // Use eprintln! for logging errors during logging setup/operation
-                // to avoid infinitely looping if logging itself fails.
-                eprintln!("Failed to send log to Log Server: {}", e);
-                std::process::exit(1);
-            }
-        });
+        // For ERROR level events (like panics), send synchronously
+        if event.metadata().level() == &tracing::Level::ERROR {
+            let rt = tokio::runtime::Builder::new_current_thread()
+                .enable_all()
+                .build()
+                .unwrap_or_else(|_| tokio::runtime::Runtime::new().unwrap());
+
+            rt.block_on(async {
+                let res = client.post(&url).json(&payload).send().await;
+                if let Err(e) = res {
+                    eprintln!("Failed to send error log to Log Server: {}", e);
+                }
+            });
+        } else {
+            // Spawn a task to send the log asynchronously
+            tokio::spawn(async move {
+                let res = client.post(&url).json(&payload).send().await;
+                if let Err(e) = res {
+                    // Use eprintln! for logging errors during logging setup/operation
+                    // to avoid infinitely looping if logging itself fails.
+                    eprintln!("Failed to send log to Log Server: {}", e);
+                    std::process::exit(1);
+                }
+            });
+        }
     }
 }
 
