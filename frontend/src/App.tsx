@@ -37,7 +37,7 @@ const EnclaveConfigMove = bcs.struct("EnclaveConfig", {
 
 function App() {
   const ENCLAVE_CONFIG_OBJ_ID = useNetworkVariable("enclaveConfigObjId");
-  const EXAMPLE_PACKAGE_ID = useNetworkVariable("examplePackageId");
+  const APP_PACKAGE_ID = useNetworkVariable("appPackageId");
   const ENCLAVE_OBJ_ID = useNetworkVariable("enclaveObjId");
 
   const currentAccount = useCurrentAccount();
@@ -136,14 +136,14 @@ function App() {
 
       const tx = new Transaction();
       const twitter = tx.moveCall({
-        target: `${EXAMPLE_PACKAGE_ID}::twitter::mint_nft`,
+        target: `${APP_PACKAGE_ID}::twitter::mint_nft`,
         arguments: [
           tx.pure.vector("u8", twitter_name),
           tx.pure.u64(response.timestamp_ms),
           tx.pure.vector("u8", fromHex(signature)),
           tx.object(ENCLAVE_OBJ_ID),
         ],
-        typeArguments: [`${EXAMPLE_PACKAGE_ID}::twitter::TWITTER`],
+        typeArguments: [`${APP_PACKAGE_ID}::twitter::TWITTER`],
       });
       tx.transferObjects([twitter], currentAccount?.address!);
       tx.setGasBudget(10000000);
